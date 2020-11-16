@@ -3,14 +3,16 @@ package org.techtown.mirimlistdialog;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnBasicList,btnRadioList;
+    Button btnBasicList,btnRadioList,btnCheckList;
     String[] basicListArr={"봄","여름","가을","겨울"};
+    boolean[] checkArr={true,false,false,false};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         btnBasicList.setOnClickListener(btnListener);
         btnRadioList=findViewById(R.id.btn_radio_list);
         btnRadioList.setOnClickListener(btnListener);
-
+        btnCheckList=findViewById(R.id.btn_check_list);
+        btnCheckList.setOnClickListener(btnListener);
     }
 
     View.OnClickListener btnListener=new View.OnClickListener(){
@@ -44,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                     dlg.setPositiveButton("닫기",null);
                     dlg.show();
                     break;
+                case R.id.btn_check_list:
+                    dlg=new AlertDialog.Builder(MainActivity.this);
+                    dlg.setTitle("좋아하는 계절을 선택하세요.");
+                    dlg.setIcon(R.mipmap.ic_launcher);
+                    dlg.setMultiChoiceItems(basicListArr,checkArr,checkListener);
+                    dlg.setPositiveButton("닫기",null);
+                    dlg.show();
+                    break;
             }
 
 
@@ -61,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
             btnRadioList.setText(basicListArr[i]);
+        }
+    };
+
+    DialogInterface.OnMultiChoiceClickListener checkListener=new DialogInterface.OnMultiChoiceClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i, boolean isChecked) {
+            if(isChecked){
+                btnCheckList.setText(basicListArr[i]);
+            }
         }
     };
 }

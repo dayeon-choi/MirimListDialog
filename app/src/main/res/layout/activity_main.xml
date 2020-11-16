@@ -23,4 +23,11 @@
         android:text="라디오버튼목록대화상자"
         />
 
+    <Button
+        android:id="@+id/btn_check_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="체크박스목록대화상자"
+        />
+
 </LinearLayout>
